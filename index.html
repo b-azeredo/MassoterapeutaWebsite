@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Ana Terapia - Massoterapia Profissional</title>
+    <link href="./dist/output.css" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="https://unpkg.com/aos@next/dist/aos.css" />
+    <style>
+        .fade-in {
+            animation: fadeIn 0.8s ease-in;
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .hover-float:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -2px rgba(0, 0, 0, 0.05);
+        }
+        
+        .pulse {
+            animation: pulse 2s infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+            100% { transform: scale(1); }
+        }
+        
+        .smooth-scroll {
+            scroll-behavior: smooth;
+        }
+
+        .whatsapp-float {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background-color: #25D366;
+            color: white;
+            border-radius: 50%;
+            width: 50px;
+            height: 50px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 24px;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+            z-index: 50;
+            transition: all 0.3s ease;
+        }
+
+        @media (min-width: 768px) {
+            .whatsapp-float {
+                width: 60px;
+                height: 60px;
+                bottom: 30px;
+                right: 30px;
+                font-size: 30px;
+            }
+        }
+        
+        .mobile-menu-active {
+            transform: translateY(0) !important;
+        }
+        
+        @media (max-width: 640px) {
+            .container {
+                padding-left: 16px;
+                padding-right: 16px;
+            }
+            
+            h1 {
+                font-size: 28px;
+            }
+            
+            h2 {
+                font-size: 24px;
+            }
+        }
+        
+        /* Específico para o header */
+        @media (max-width: 767px) {
+            .navbar-container {
+                padding-top: 10px;
+                padding-bottom: 10px;
+            }
+            
+            .logo-text {
+                font-size: 1.25rem;
+            }
+        }
+        
+        /* Ajuste para tamanhos muito pequenos */
+        @media (max-width: 360px) {
+            .logo-text {
+                font-size: 1.1rem;
+            }
+        }
+        
+        /* Melhorias específicas para o menu mobile */
+        .mobile-menu {
+            position: fixed;
+            top: 70px;
+            left: 0;
+            right: 0;
+            background-color: white;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06);
+            transform: translateY(-150%);
+            transition: transform 0.3s ease-in-out;
+            z-index: 5;
+            padding: 1.5rem 0;
+            overflow: hidden;
+            visibility: hidden;
+        }
+        
+        .mobile-menu.active {
+            transform: translateY(0);
+            visibility: visible;
+        }
+        
+        @media (min-width: 768px) {
+            .mobile-menu {
+                display: none;
+            }
+        }
+        
+        /* Garantir que o navbar fique por cima de tudo */
+        nav.navbar-container {
+            z-index: 100;
+        }
+    </style>
+</head>
+<body class="bg-amber-50 text-gray-800 font-sans smooth-scroll overflow-x-hidden">
+    <!-- Navbar -->
+    <nav class="bg-white shadow-md sticky top-0 z-10 navbar-container">
+        <div class="container mx-auto px-3 sm:px-4 md:px-6 flex justify-between items-center py-3 md:py-4">
+            <a href="#" class="text-xl md:text-2xl font-bold text-teal-600 fade-in flex items-center">
+                <span class="bg-teal-600 text-white p-1 md:p-2 rounded-lg mr-2 flex items-center justify-center" style="min-width: 32px; min-height: 32px;"><i class="fas fa-spa"></i></span>
+                <span class="logo-text">Simone Terapia</span>
+            </a>
+            <div class="hidden md:flex space-x-3 lg:space-x-6 fade-in">
+                <a href="#inicio" class="px-3 lg:px-4 py-2 rounded-lg hover:bg-teal-50 hover:text-teal-600 transition duration-300 text-sm lg:text-base">Início</a>
+                <a href="#servicos" class="px-3 lg:px-4 py-2 rounded-lg hover:bg-teal-50 hover:text-teal-600 transition duration-300 text-sm lg:text-base">Serviços</a>
+                <a href="#espaco" class="px-3 lg:px-4 py-2 rounded-lg hover:bg-teal-50 hover:text-teal-600 transition duration-300 text-sm lg:text-base">Nosso Espaço</a>
+                <a href="#depoimentos" class="px-3 lg:px-4 py-2 rounded-lg hover:bg-teal-50 hover:text-teal-600 transition duration-300 text-sm lg:text-base">Depoimentos</a>
+                <a href="#contato" class="px-3 lg:px-4 py-2 bg-teal-600 text-white rounded-lg hover:bg-teal-700 transition duration-300 text-sm lg:text-base">Contato</a>
+            </div>
+            <div class="md:hidden fade-in">
+                <button class="text-gray-500 hover:text-teal-600 transition duration-300 p-2 rounded-lg">
+                    <i class="fas fa-bars text-xl"></i>
+                </button>
+            </div>
+        </div>
+    </nav>
+
+    <!-- Seção Inicial -->
+    <section id="inicio" class="min-h-screen flex items-start justify-center pt-20 md:pt-28 lg:pt-36 bg-gradient-to-b from-teal-50 to-amber-50">
+        <div class="container mx-auto px-4 md:px-8 flex flex-col md:flex-row items-center md:space-x-4 lg:space-x-8">
+            <div class="md:w-1/2 mb-8 md:mb-0 text-center md:text-left" data-aos="fade-right" data-aos-duration="1000">
+                <h1 class="text-3xl sm:text-4xl md:text-5xl font-bold text-teal-700 leading-tight mb-4">Bem-estar e Saúde através da Massoterapia</h1>
+                <p class="text-base md:text-lg text-gray-600 mb-6 md:mb-8">Descubra o poder da massoterapia para restaurar o equilíbrio entre corpo e mente, promovendo saúde e bem-estar.</p>
+                <div class="flex flex-col sm:flex-row space-y-3 sm:space-y-0 sm:space-x-4 justify-center md:justify-start">
+                    <a href="#contato" class="bg-teal-600 text-white py-2 md:py-3 px-5 md:px-6 rounded-lg hover:bg-teal-700 transition duration-300 text-center text-sm md:text-base">Agende sua Sessão</a>
+                    <a href="#servicos" class="bg-white text-teal-600 border border-teal-600 py-2 md:py-3 px-5 md:px-6 rounded-lg hover:bg-teal-50 transition duration-300 text-center text-sm md:text-base">Nossos Serviços</a>
+                </div>
+            </div>
+            <div class="md:w-1/2" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                <img src="images/main-image.jpg" alt="Massagem Terapêutica" class="rounded-lg shadow-xl w-full h-auto hover:shadow-2xl transition duration-500">
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Serviços e Preços -->
+    <section id="servicos" class="py-16 md:py-20 lg:py-24 bg-gradient-to-b from-teal-50 to-amber-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-700 mb-3 md:mb-4">Nossos Serviços</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">Conheça os tratamentos que oferecemos e escolha o mais adequado para suas necessidades.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6 lg:gap-8">
+                <!-- Massagem de Relaxamento -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-spa text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem de Relaxamento</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">50€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>90 minutos</span>
+                                <span class="font-semibold text-teal-700">70€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>120 minutos</span>
+                                <span class="font-semibold text-teal-700">90€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">A massagem de relaxamento é uma terapia suave que utiliza movimentos longos e fluidos para aliviar o estresse, reduzir a tensão muscular e promover uma sensação geral de bem-estar.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Redução do estresse, melhora da qualidade do sono, alívio da tensão muscular e elevação do humor.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com estresse, ansiedade, tensão muscular leve ou que buscam um momento de relaxamento completo.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20de%20Relaxamento." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Massagem Terapêutica -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-hands text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem Terapêutica</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">50€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>90 minutos</span>
+                                <span class="font-semibold text-teal-700">75€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">A massagem terapêutica combina diferentes técnicas para tratar problemas musculoesqueléticos específicos, focando em áreas problemáticas para aliviar dores e melhorar a mobilidade.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Alívio de dores crônicas, melhora da postura, recuperação de lesões e maior amplitude de movimento.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com dores musculares persistentes, problemas posturais, atletas em recuperação ou com tensão muscular localizada.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20Terap%C3%AAutica." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Massagem Pedras Quentes -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-fire text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem Pedras Quentes</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">50€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>90 minutos</span>
+                                <span class="font-semibold text-teal-700">70€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">A massagem com pedras quentes utiliza pedras vulcânicas aquecidas que são posicionadas em pontos específicos do corpo, combinando calor profundo com movimentos de massagem relaxantes.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Relaxamento muscular profundo, melhora da circulação, alívio de dores e equilíbrio energético.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com tensão muscular profunda, rigidez, má circulação ou que buscam uma experiência relaxante diferenciada.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20com%20Pedras%20Quentes." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Massagem Costas e Ombros -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-user text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem Costas e Ombros</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>35 minutos</span>
+                                <span class="font-semibold text-teal-700">35€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">Esta massagem foca especificamente nas áreas de maior tensão do corpo moderno: costas, ombros e pescoço, oferecendo alívio rápido e eficaz.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Alívio imediato da tensão, redução de dores na região cervical e lombar, melhora da mobilidade.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com rotina de trabalho sentado, tensão nos ombros e pescoço, ou quem busca um tratamento rápido e focado.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20Costas%20e%20Ombros." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Massagem Oriental -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-yin-yang text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem Oriental</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">55€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>90 minutos</span>
+                                <span class="font-semibold text-teal-700">85€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">A massagem oriental combina técnicas tradicionais asiáticas que trabalham com pontos de pressão e meridianos energéticos para restaurar o fluxo de energia vital no corpo.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Equilíbrio energético, alívio do estresse, desintoxicação e estimulação dos sistemas corporais.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas que buscam tratamentos holísticos, equilíbrio mente-corpo, ou alívio de tensões profundas.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20Oriental." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Massagem Revigorante com Aloe Vera -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-seedling text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem com Aloe Vera</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">50€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>90 minutos</span>
+                                <span class="font-semibold text-teal-700">70€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">Combinação de técnicas de massagem com as propriedades hidratantes e curativas do Aloe Vera natural, oferecendo nutrição para a pele enquanto relaxa os músculos.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Hidratação profunda da pele, propriedades regenerativas, relaxamento muscular e efeito calmante.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com pele seca, sensível ou danificada pelo sol, ou que buscam os benefícios combinados para pele e músculos.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20com%20Aloe%20Vera." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Massagem nos Pés -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="100">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-socks text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Massagem nos Pés</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>30 minutos</span>
+                                <span class="font-semibold text-teal-700">30€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">50€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">Inspirada na reflexologia, esta massagem trabalha pontos específicos nos pés que correspondem a diferentes órgãos e partes do corpo, estimulando a saúde geral.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Alívio da fadiga nos pés, melhora da circulação, estímulo aos sistemas corporais e relaxamento profundo.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas que passam muito tempo em pé, sofrem com retenção de líquidos, ou buscam os benefícios holísticos da reflexologia.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Massagem%20nos%20P%C3%A9s." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Drenagem Linfática Manual -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="200">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-wind text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Drenagem Linfática Manual</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">45€</span>
+                            </li>
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>90 minutos</span>
+                                <span class="font-semibold text-teal-700">60€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">Técnica suave e rítmica que estimula o sistema linfático a eliminar o excesso de líquidos e toxinas do corpo, usando movimentos precisos em direção aos gânglios linfáticos.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Redução de inchaço, desintoxicação, melhora do sistema imunológico e diminuição da retenção de líquidos.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com retenção de líquidos, sistema linfático comprometido, recuperação pós-cirúrgica ou que buscam desintoxicação.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Drenagem%20Linf%C3%A1tica%20Manual." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+                
+                <!-- Drenagem Facial com massagem lifting -->
+                <div class="bg-white p-4 md:p-6 rounded-lg shadow-md hover:shadow-lg transition duration-300 flex flex-col h-full" data-aos="fade-up" data-aos-duration="600" data-aos-delay="300">
+                    <div class="flex-1">
+                        <div class="bg-teal-100 w-16 h-16 rounded-full flex items-center justify-center mb-4 mx-auto">
+                            <i class="fas fa-face-smile text-teal-600 text-2xl"></i>
+                        </div>
+                        <h3 class="text-xl font-semibold text-teal-700 text-center mb-4">Drenagem Facial com Lifting</h3>
+                        <ul class="space-y-2 mb-4">
+                            <li class="flex items-center justify-between border-b border-gray-100 pb-2">
+                                <span>60 minutos</span>
+                                <span class="font-semibold text-teal-700">40€</span>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="service-details hidden mt-4 pt-4 border-t border-gray-100 text-gray-600">
+                        <p class="mb-2">Tratamento facial que combina drenagem linfática com técnicas de lifting natural, reduzindo inchaço e promovendo firmeza através de movimentos suaves e precisos.</p>
+                        <p class="mb-2"><strong>Benefícios:</strong> Redução de olheiras e inchaço facial, melhora da circulação, efeito lifting natural e rejuvenescimento da pele.</p>
+                        <p class="mb-3"><strong>Ideal para:</strong> Pessoas com retenção de líquidos facial, olheiras, sinais de envelhecimento ou que buscam um boost de luminosidade para a pele.</p>
+                    </div>
+                    <div class="text-center mt-auto pt-4 flex justify-between items-center space-x-3">
+                        <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Eu%20quero%20marcar%20uma%20sess%C3%A3o%20de%20Drenagem%20Facial%20com%20Lifting." target="_blank" class="bg-green-500 text-white py-2 px-3 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center text-sm">
+                            <i class="fab fa-whatsapp mr-1"></i> Marcar Sessão
+                        </a>
+                        <button class="service-details-btn text-teal-600 hover:text-teal-800 transition duration-300">
+                            <span>Ver Detalhes</span> <i class="fas fa-chevron-down ml-1"></i>
+                        </button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Galeria -->
+    <section id="espaco" class="py-16 bg-gradient-to-b from-amber-50 to-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-700 mb-3 md:mb-4">Nosso Espaço de Bem-estar</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">Conheça o ambiente tranquilo e acolhedor onde realizamos nossas sessões de massoterapia.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-3 md:gap-4">
+                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="700" data-aos-delay="0">
+                    <img src="images/1.jpg" alt="Sala de Massagem" class="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-700">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="700" data-aos-delay="100">
+                    <img src="images/2.webp" alt="Sala de Relaxamento" class="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-700">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="700" data-aos-delay="200">
+                    <img src="images/3.webp" alt="Área de Recepção" class="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-700">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="700" data-aos-delay="150">
+                    <img src="images/4.webp" alt="Massagem Relaxante" class="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-700">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="700" data-aos-delay="250">
+                    <img src="images/5.webp" alt="Produtos Naturais" class="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-700">
+                </div>
+                <div class="overflow-hidden rounded-lg shadow-lg" data-aos="fade-up" data-aos-duration="700" data-aos-delay="350">
+                    <img src="images/6.webp" alt="Ambiente Zen" class="w-full h-48 sm:h-56 md:h-64 object-cover hover:scale-105 transition duration-700">
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Depoimentos -->
+    <section id="depoimentos" class="py-16 md:py-20 lg:py-24 bg-teal-50">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-700 mb-3 md:mb-4">O Que Nossos Clientes Dizem</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">A opinião de quem já experimentou nossos serviços é o melhor testemunho da qualidade do nosso trabalho.</p>
+            </div>
+            
+            <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md hover-float transition duration-300" data-aos="flip-left" data-aos-duration="1000">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Nunca imaginei que uma massagem pudesse fazer tanta diferença na minha qualidade de vida. As dores nas costas que eu tinha há anos diminuíram significativamente após algumas sessões!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-teal-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-teal-700 font-semibold">CM</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Carolina Mendes</h4>
+                            <p class="text-gray-500 text-sm">Cliente há 8 meses</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md hover-float transition duration-300" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"O ambiente é simplesmente perfeito: tranquilo, limpo e acolhedor. A Simone tem mãos mágicas e consegue identificar exatamente onde estão os pontos de tensão. Recomendo muito!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-teal-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-teal-700 font-semibold">RS</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Rafael Santos</h4>
+                            <p class="text-gray-500 text-sm">Cliente há 1 ano</p>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="bg-white p-6 md:p-8 rounded-lg shadow-md hover-float transition duration-300" data-aos="flip-left" data-aos-duration="1000" data-aos-delay="400">
+                    <div class="flex items-center mb-4">
+                        <div class="text-yellow-400 flex">
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                            <i class="fas fa-star"></i>
+                        </div>
+                    </div>
+                    <p class="text-gray-600 italic mb-6">"Como atleta, tenho muitas lesões e dores musculares. As sessões de massoterapia são fundamentais para minha recuperação e desempenho. A Simone é uma ótima profissional!"</p>
+                    <div class="flex items-center">
+                        <div class="w-12 h-12 bg-teal-200 rounded-full flex items-center justify-center mr-4">
+                            <span class="text-teal-700 font-semibold">FA</span>
+                        </div>
+                        <div>
+                            <h4 class="font-semibold">Fernanda Almeida</h4>
+                            <p class="text-gray-500 text-sm">Cliente há 6 meses</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Seção de Contato -->
+    <section id="contato" class="py-16 md:py-20 lg:py-24 bg-white">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="text-center mb-10 md:mb-16" data-aos="fade-up" data-aos-duration="800">
+                <h2 class="text-2xl sm:text-3xl md:text-4xl font-bold text-teal-700 mb-3 md:mb-4">Entre em Contacto</h2>
+                <p class="text-gray-600 max-w-2xl mx-auto text-sm md:text-base">Estamos à disposição para agendar sua sessão e responder todas as suas dúvidas.</p>
+            </div>
+            
+            <div class="flex flex-col md:flex-row gap-6 md:gap-8">
+                <div class="md:w-1/2 bg-teal-50 p-6 md:p-8 rounded-lg" data-aos="fade-right" data-aos-duration="1000">
+                    <h3 class="text-2xl font-semibold text-teal-700 mb-6">Agende sua Sessão</h3>
+                    <p class="text-gray-600 mb-6">Entre em contacto connosco diretamente pelos seguintes canais para agendar sua sessão de massoterapia:</p>
+                    
+                    <div class="space-y-6">
+                        <div class="flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition duration-300">
+                            <div class="bg-teal-100 rounded-full p-3 mr-4">
+                                <i class="fas fa-phone text-teal-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-teal-700 mb-1">Telefone</h4>
+                                <p class="text-gray-600"><a href="tel:+351928046204" class="hover:text-teal-600 transition duration-300">+351 928 046 204</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition duration-300">
+                            <div class="bg-teal-100 rounded-full p-3 mr-4">
+                                <i class="fas fa-envelope text-teal-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-teal-700 mb-1">E-mail</h4>
+                                <p class="text-gray-600"><a href="mailto:simone080374@gmail.com" class="hover:text-teal-600 transition duration-300">simone080374@gmail.com</a></p>
+                            </div>
+                        </div>
+                        
+                        <div class="flex items-center bg-white p-4 rounded-lg shadow-sm hover:shadow-md transition duration-300">
+                            <div class="bg-green-100 rounded-full p-3 mr-4">
+                                <i class="fab fa-whatsapp text-green-600 text-xl"></i>
+                            </div>
+                            <div>
+                                <h4 class="font-medium text-teal-700 mb-1">WhatsApp</h4>
+                                <p class="text-gray-600 mb-3">Envie uma mensagem diretamente</p>
+                                <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20sess%C3%A3o%20de%20massoterapia." target="_blank" class="bg-green-500 text-white py-2 px-4 rounded-lg hover:bg-green-600 transition duration-300 inline-flex items-center justify-center">
+                                    <i class="fab fa-whatsapp mr-2"></i> Enviar Mensagem
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="md:w-1/2 flex flex-col gap-6 md:gap-8" data-aos="fade-left" data-aos-duration="1000" data-aos-delay="200">
+                    <div class="bg-amber-50 p-6 md:p-8 rounded-lg mb-8">
+                        <h3 class="text-2xl font-semibold text-teal-700 mb-6">Informações de Contacto</h3>
+                        <ul class="space-y-4">
+                            <li class="flex items-start">
+                                <i class="fas fa-map-marker-alt text-teal-600 mt-1 mr-3"></i>
+                                <span>Avenida 5 de Outubro 16 1050-056 Lisboa</span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-phone text-teal-600 mr-3"></i>
+                                <span><a href="tel:+351928046204" class="hover:text-teal-600 transition duration-300">+351 928 046 204</a></span>
+                            </li>
+                            <li class="flex items-center">
+                                <i class="fas fa-envelope text-teal-600 mr-3"></i>
+                                <span><a href="mailto:simone080374@gmail.com" class="hover:text-teal-600 transition duration-300">simone080374@gmail.com</a></span>
+                            </li>
+                        </ul>
+                    </div>
+                    
+                    <div class="bg-teal-600 text-white p-6 md:p-8 rounded-lg flex items-center justify-center" data-aos="zoom-in" data-aos-duration="700" data-aos-delay="300">
+                        <div class="text-center">
+                            <i class="fas fa-map-marked-alt text-4xl mb-4 pulse"></i>
+                            <h3 class="text-2xl font-semibold mb-2">Visite Nosso Espaço</h3>
+                            <p class="mb-4">Estamos localizados em uma região central e de fácil acesso em Lisboa.</p>
+                            <a href="https://maps.app.goo.gl/ZfbyG5BBJzWGzLeW9" target="_blank" class="bg-white text-teal-600 py-3 px-6 rounded-lg hover:bg-teal-50 transition duration-300 inline-block hover:shadow-lg transform hover:scale-105">
+                                <i class="fas fa-directions mr-2"></i> Ver no Mapa
+                            </a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    
+    <!-- Footer -->
+    <footer class="bg-teal-800 text-white py-8 md:py-10">
+        <div class="container mx-auto px-4 md:px-6">
+            <div class="flex flex-col md:flex-row justify-between items-center">
+                <div class="mb-0 md:mb-0 text-center md:text-left" data-aos="fade-right" data-aos-duration="800">
+                    <h3 class="text-xl md:text-2xl font-semibold mb-2">Simone Massoterapia</h3>
+                    <p class="text-teal-200 text-sm md:text-base">Cuidando do seu bem-estar desde 2015</p>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <!-- Botão flutuante de WhatsApp -->
+    <a href="https://api.whatsapp.com/send?phone=351928046204&text=Ol%C3%A1!%20Gostaria%20de%20saber%20mais%20sobre%20os%20servi%C3%A7os%20de%20massoterapia." target="_blank" class="whatsapp-float pulse">
+        <i class="fab fa-whatsapp"></i>
+    </a>
+
+    <!-- Script para Menu Mobile -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // Criando o menu mobile de forma mais confiável
+            const nav = document.querySelector('nav');
+            const mobileMenuButton = document.querySelector('.md\\:hidden button');
+            
+            // Criar o menu mobile diretamente no HTML ao invés de injetá-lo pelo JavaScript
+            const mobileMenu = document.createElement('div');
+            mobileMenu.classList.add('mobile-menu');
+            mobileMenu.innerHTML = `
+                <div class="container mx-auto px-4 flex flex-col space-y-4">
+                    <a href="#inicio" class="text-gray-800 hover:text-teal-600 transition py-3 px-4 rounded-md hover:bg-teal-50">Início</a>
+                    <a href="#servicos" class="text-gray-800 hover:text-teal-600 transition py-3 px-4 rounded-md hover:bg-teal-50">Serviços</a>
+                    <a href="#espaco" class="text-gray-800 hover:text-teal-600 transition py-3 px-4 rounded-md hover:bg-teal-50">Nosso Espaço</a>
+                    <a href="#depoimentos" class="text-gray-800 hover:text-teal-600 transition py-3 px-4 rounded-md hover:bg-teal-50">Depoimentos</a>
+                    <a href="#contato" class="bg-teal-600 text-white transition py-3 px-4 rounded-md hover:bg-teal-700 text-center mt-3">Contactar</a>
+                </div>
+            `;
+            // Inserir o menu após a navegação
+            nav.parentNode.insertBefore(mobileMenu, nav.nextSibling);
+            
+            // Toggle para abrir/fechar o menu
+            let menuOpen = false;
+            mobileMenuButton.addEventListener('click', function() {
+                menuOpen = !menuOpen;
+                if (menuOpen) {
+                    mobileMenu.classList.add('active');
+                    setTimeout(() => {
+                        mobileMenu.style.visibility = 'visible';
+                    }, 50);
+                } else {
+                    mobileMenu.classList.remove('active');
+                    setTimeout(() => {
+                        mobileMenu.style.visibility = 'hidden';
+                    }, 300);
+                }
+            });
+            
+            // Fechar menu ao clicar em um link
+            const mobileLinks = mobileMenu.querySelectorAll('a');
+            mobileLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    
+                    // Fechar o menu
+                    menuOpen = false;
+                    mobileMenu.classList.remove('active');
+                    setTimeout(() => {
+                        mobileMenu.style.visibility = 'hidden';
+                    }, 300);
+                    
+                    // Navegar para a seção com offset maior
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const navHeight = nav.getBoundingClientRect().height;
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navHeight - 70, // Aumentando de 40px para 70px
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Adiciona rolagem suave para links da navbar desktop também
+            const desktopLinks = document.querySelectorAll('.hidden.md\\:flex a');
+            desktopLinks.forEach(link => {
+                link.addEventListener('click', function(e) {
+                    e.preventDefault();
+                    const targetId = this.getAttribute('href');
+                    const targetElement = document.querySelector(targetId);
+                    
+                    if (targetElement) {
+                        const navHeight = nav.getBoundingClientRect().height;
+                        window.scrollTo({
+                            top: targetElement.offsetTop - navHeight - 70, // Aumentando de 40px para 70px
+                            behavior: 'smooth'
+                        });
+                    }
+                });
+            });
+            
+            // Fechar o menu quando a tela for redimensionada para desktop
+            window.addEventListener('resize', function() {
+                if (window.innerWidth >= 768 && menuOpen) {
+                    menuOpen = false;
+                    mobileMenu.classList.remove('active');
+                    setTimeout(() => {
+                        mobileMenu.style.visibility = 'hidden';
+                    }, 300);
+                }
+            });
+        });
+    </script>
+
+    <!-- Inicialização do AOS -->
+    <script src="https://unpkg.com/aos@next/dist/aos.js"></script>
+    <script>
+        AOS.init({
+            duration: 800,
+            easing: 'ease-in-out',
+            once: true,
+            mirror: false,
+            offset: 100
+        });
+    </script>
+
+    <!-- Script JavaScript para detalhes dos serviços -->
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            // ... código existente ...
+            
+            // Adicionar funcionalidade para mostrar/ocultar detalhes dos serviços
+            const detailButtons = document.querySelectorAll('.service-details-btn');
+            
+            detailButtons.forEach(button => {
+                button.addEventListener('click', function() {
+                    // Encontrar o elemento pai que contém todo o card
+                    const card = this.closest('.bg-white');
+                    // Encontrar os detalhes dentro deste card
+                    const details = card.querySelector('.service-details');
+                    const icon = this.querySelector('i');
+                    
+                    details.classList.toggle('hidden');
+                    
+                    if (details.classList.contains('hidden')) {
+                        icon.classList.remove('fa-chevron-up');
+                        icon.classList.add('fa-chevron-down');
+                        this.querySelector('span').textContent = 'Ver Detalhes';
+                    } else {
+                        icon.classList.remove('fa-chevron-down');
+                        icon.classList.add('fa-chevron-up');
+                        this.querySelector('span').textContent = 'Ocultar Detalhes';
+                    }
+                });
+            });
+        });
+    </script>
+</body>
+</html>
